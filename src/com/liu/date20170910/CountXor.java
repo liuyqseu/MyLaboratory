@@ -3,7 +3,7 @@ package com.liu.date20170910;
 import java.util.Scanner;
 
 /**
- * 滴滴出行2018校招笔试题第一题
+ * 滴滴出行2018校招笔试题第一题  --有待于进一步验证
  * Created by Herry on 2017/9/10.
  */
 public class CountXor {
