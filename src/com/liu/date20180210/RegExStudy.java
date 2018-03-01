@@ -74,6 +74,7 @@ public class RegExStudy {
     }
 
     //【字符串替代】，将符合正则表达式规则的子字符串替换成新字符串
+    //另外，String支持正则表达式的方法有repalceAll()和repalceFirst()，replace()是不支持的
     public static String replaceString(String regStr, String originStr, String newStr) {
         return originStr.replaceAll(regStr, newStr);
     }
