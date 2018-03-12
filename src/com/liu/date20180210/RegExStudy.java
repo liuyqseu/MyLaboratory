@@ -61,7 +61,7 @@ public class RegExStudy {
 
         String[] ss = new String[matcher.groupCount()];
         if(matcher.find()) {
-            for(int i = 1; i <= matcher.groupCount();i++){
+            for(int i = 1; i <= matcher.groupCount(); i++){
                 ss[i-1] = matcher.group(i);
             }
         }
