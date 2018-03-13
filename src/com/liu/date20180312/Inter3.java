@@ -1,45 +1,59 @@
 package com.liu.date20180312;
 
+import java.util.Scanner;
+
 /**
  * Created by Herry on 2018/3/12.
- * 说明： 科大讯飞第三题笔试题。有待进一步完善。
+ * 说明： 科大讯飞第三题笔试题。
+ * 完善： 2018年3月13日09:27:24
+ *
  */
 public class Inter3 {
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-        String[][] input = {{"o", "^", "-"},
-                            {"/", "v", "|"},
-                            {"v", "x", "^"}};
-
-        input = turnLeft(input);
-
-        int length = input.length;
-        for (int i = 0; i < length; i++) {
-            for (int j = 0; j < length; j++) {
-                System.out.print(input[i][j]);
+        while(true) {
+            int n = Integer.parseInt(scanner.nextLine());
+            String[][] input = new String[n][n];
+            for(int i = 0; i < n; i ++) {
+                char[] inputChars = scanner.nextLine().toCharArray();
+                for(int j = 0; j < inputChars.length; j ++) {
+                    input[i][j] = String.valueOf(inputChars[j]);
+                }
             }
-            System.out.println();
-        }
 
-        System.out.println();
-        System.out.println();
-
-
-        input = flipVertical(input);
-        for (int i = 0; i < length; i++) {
-            for (int j = 0; j < length; j++) {
-                System.out.print(input[i][j]);
+            //获取指令，并执行相应操作
+            String[] orders = scanner.nextLine().split(" ");
+            for(String order : orders) {
+                switch(order) {
+                    case "<":
+                        input = turnLeft(input);
+                        break;
+                    case ">":
+                        input = turnRight(input);
+                        break;
+                    case "|":
+                        input = flipVertical(input);
+                        break;
+                    case "-":
+                        input = flipHorizontal(input);
+                        break;
+                    case "\\":
+                        input = turnDiagonalt(input);
+                        break;
+                    case "/":
+                        input = turnAntiDiagonalt(input);
+                }
             }
-            System.out.println();
+
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    System.out.print(input[i][j]);
+                }
+                System.out.println();
+            }
         }
-
-
-
-
-
-
-
 
     }
 
@@ -84,7 +98,7 @@ public class Inter3 {
         String oldChar = "";
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
-                oldChar = input[j][length - 1 - i];
+                oldChar = input[length - 1 - j][i];
                 if(oldChar.equals("<")) {
                     temp[i][j] = "^";
                 } else if(oldChar.equals(">")) {
@@ -116,12 +130,13 @@ public class Inter3 {
 
         String oldChar = "";
         for (int i = 0; i < length; i++) {
-            for (int j = 0; j < length/2; j++) {
+            for (int j = 0; j < length; j++) {
                 oldChar = input[length - 1 - i][j];
-                if(oldChar.equals("<")) {
-                    temp[i][j] = ">";
-                } else if(oldChar.equals(">")) {
-                    temp[i][j] = "<";
+
+                if(oldChar.equals("^")) {
+                    temp[i][j] = "v";
+                } else if(oldChar.equals("v")) {
+                    temp[i][j] = "^";
                 }else if(oldChar.equals("\\")) {
                     temp[i][j] = "/";
                 } else if(oldChar.equals("/")) {
@@ -131,11 +146,7 @@ public class Inter3 {
                 }
             }
         }
-        if(length % 2 != 0 ) {
-            for (int i = 0; i < length; i++) {
-                temp[length/2+1][i] = input[length/2+1][i];
-            }
-        }
+
         return temp;
     }
 
@@ -146,12 +157,12 @@ public class Inter3 {
 
         String oldChar = "";
         for (int i = 0; i < length; i++) {
-            for (int j = 0; j <= length/2; j++) {
+            for (int j = 0; j < length; j++) {
                 oldChar = input[i][length - 1 - j];
-                if(oldChar.equals("^")) {
-                    temp[i][j] = "v";
-                } else if(oldChar.equals("v")) {
-                    temp[i][j] = "^";
+                if(oldChar.equals(">")) {
+                    temp[i][j] = "<";
+                } else if(oldChar.equals("<")) {
+                    temp[i][j] = ">";
                 } else if(oldChar.equals("\\")) {
                     temp[i][j] = "/";
                 } else if(oldChar.equals("/")) {
@@ -159,12 +170,6 @@ public class Inter3 {
                 } else {
                     temp[i][j] = oldChar;
                 }
-            }
-        }
-
-        if(length % 2 != 0 ) {
-            for (int i = 0; i < length; i++) {
-                temp[i][length/2+1] = input[i][length/2+1];
             }
         }
 
@@ -209,7 +214,7 @@ public class Inter3 {
         String oldChar = "";
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
-                oldChar = input[j][length - 1 - i];
+                oldChar = input[length - 1 - j][length - 1 - i];
                 if(oldChar.equals("<")) {
                     temp[i][j] = "v";
                 } else if(oldChar.equals(">")) {
@@ -229,12 +234,5 @@ public class Inter3 {
         }
         return temp;
     }
-
-
-
-
-
-
-
 
 }
