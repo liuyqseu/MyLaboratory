@@ -32,7 +32,6 @@ public class Inter2 {
             System.out.print(m * n - wrongNum * x);
         }
 
-
     }
 
 }
